@@ -3,37 +3,6 @@
 --License: WTFPL
 
 -- Node definitions
-minetest.register_node("bitchange:minecoin_in_ground", {
-	description = "MineCoin Ore",
-	tiles = { "default_stone.png^bitchange_minecoin_in_ground.png" },
-	is_ground_content = true,
-	groups = {cracky=2},
-	sounds = default.node_sound_stone_defaults(),
-	drop = {
-		max_items = 2,
-		items = {
-			{items = {"bitchange:minecoin"}, rarity = 2 },
-			{items = {"bitchange:minecoin 3"} }
-		}
-	},
-})
-
-minetest.register_node("bitchange:mineninth_in_ground", {
-	description = "MineNinth Ore",
-	tiles = { "default_stone.png^bitchange_mineninth_in_ground.png" },
-	is_ground_content = true,
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-	drop = {
-		max_items = 3,
-		items = {
-			{items = {"bitchange:coinbase"}, rarity = 5 },
-			{items = {"bitchange:coinbase 2"}, rarity = 3 },
-			{items = {"bitchange:coinbase 6"} }
-		}
-	},
-})
-
 minetest.register_node("bitchange:minecoinblock", {
 	description = "MineCoin Block",
 	tiles = { "bitchange_minecoinblock.png" },
@@ -53,11 +22,6 @@ minetest.register_craftitem("bitchange:mineninth", {
 	description = "MineNinth",
 	inventory_image = "bitchange_mineninth.png",
 	stack_max = 30000,
-})
-
-minetest.register_craftitem("bitchange:coinbase", {
-	description = "Coin base",
-	inventory_image = "bitchange_coinbase.png",
 })
 
 -- Crafting
@@ -94,16 +58,17 @@ minetest.register_craft({
 })
 
 -- Cooking
-minetest.register_craft({
-	type = "cooking",
-	recipe = "bitchange:coinbase",
-	output = "bitchange:mineninth",
-})
 
 minetest.register_craft({
 	type = "cooking",
 	recipe = "default:goldblock",
 	output = "bitchange:minecoinblock 2",
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	recipe = { "bitchange:minecoinblock", "bitchange:minecoinblock" },
+	output = "default:goldblock",
 })
 
 minetest.register_craft({
@@ -114,6 +79,49 @@ minetest.register_craft({
 
 -- Generation
 if bitchange.enable_generation then
+
+minetest.register_node("bitchange:minecoin_in_ground", {
+	description = "MineCoin Ore",
+	tiles = { "default_stone.png^bitchange_minecoin_in_ground.png" },
+	is_ground_content = true,
+	groups = {cracky=2},
+	sounds = default.node_sound_stone_defaults(),
+	drop = {
+		max_items = 2,
+		items = {
+			{items = {"bitchange:minecoin"}, rarity = 2 },
+			{items = {"bitchange:minecoin 3"} }
+		}
+	},
+})
+
+minetest.register_node("bitchange:mineninth_in_ground", {
+	description = "MineNinth Ore",
+	tiles = { "default_stone.png^bitchange_mineninth_in_ground.png" },
+	is_ground_content = true,
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+	drop = {
+		max_items = 3,
+		items = {
+			{items = {"bitchange:coinbase"}, rarity = 5 },
+			{items = {"bitchange:coinbase 2"}, rarity = 3 },
+			{items = {"bitchange:coinbase 6"} }
+		}
+	},
+})
+
+minetest.register_craftitem("bitchange:coinbase", {
+	description = "Coin base",
+	inventory_image = "bitchange_coinbase.png",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	recipe = "bitchange:coinbase",
+	output = "bitchange:mineninth",
+})
+
 minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "bitchange:minecoin_in_ground",
